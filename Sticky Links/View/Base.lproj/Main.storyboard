@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jIg-j6-wa6">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="szk-Ml-o5U">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" id="szk-Ml-o5U">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -26,11 +26,27 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LinkCell" id="Jgs-ap-hfS">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jgs-ap-hfS" id="D2V-ZO-8DE">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yif-eD-zTA" userLabel="Bookmark Link Button">
+                                            <rect key="frame" x="337.33333333333331" y="6" width="41" height="31"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
+                                            <connections>
+                                                <action selector="bookmarkLinksButton:" destination="X4Q-zs-uTj" eventType="touchUpInside" id="bXY-Dh-mwp"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="yif-eD-zTA" secondAttribute="bottom" constant="6" id="7vK-Co-2uk"/>
+                                        <constraint firstAttribute="trailing" secondItem="yif-eD-zTA" secondAttribute="trailing" constant="6" id="HIx-nT-AgL"/>
+                                        <constraint firstItem="yif-eD-zTA" firstAttribute="top" secondItem="D2V-ZO-8DE" secondAttribute="top" constant="6" id="I44-fe-YC5"/>
+                                        <constraint firstItem="yif-eD-zTA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="D2V-ZO-8DE" secondAttribute="leading" constant="20" symbolic="YES" id="p64-Fu-9aV"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -39,14 +55,29 @@
                             <outlet property="delegate" destination="X4Q-zs-uTj" id="bKD-fV-0Lp"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" id="MrQ-1r-Glx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FIV-2n-oiw">
-                            <connections>
-                                <action selector="addLinks:" destination="X4Q-zs-uTj" id="zsv-9P-BrP"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="FIV-2n-oiw">
+                                <connections>
+                                    <action selector="addLinks:" destination="X4Q-zs-uTj" id="zsv-9P-BrP"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="9AO-Y3-2OH">
+                                <connections>
+                                    <action selector="sortButton:" destination="X4Q-zs-uTj" id="kHM-RK-5S0"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="aA2-GA-Xxx">
+                                <connections>
+                                    <action selector="searchButtonPressed:" destination="X4Q-zs-uTj" id="tvu-Bu-yK3"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="searchBar" destination="szk-Ml-o5U" id="eQj-qy-o1s"/>
                         <segue destination="I2x-vD-RLp" kind="show" identifier="OpenLinkSegue" id="7pZ-eG-Mpp"/>
                     </connections>
                 </tableViewController>
@@ -63,7 +94,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BcS-wn-unb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -80,11 +111,13 @@
                             <constraint firstItem="BcS-wn-unb" firstAttribute="leading" secondItem="wfs-i0-Fg4" secondAttribute="leading" id="lHa-oO-dYm"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nLO-xy-8sH"/>
+                    <navigationItem key="navigationItem" id="nLO-xy-8sH">
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="gGh-x7-ezW"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bus-pz-j6k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1781" y="80"/>
+            <point key="canvasLocation" x="1749" y="80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Awl-xn-7Ip">
@@ -94,6 +127,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="B1j-Nb-Ia6">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="Didot-Bold" family="Didot" pointSize="23"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -112,13 +148,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="u6J-Vx-bbb">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" id="GWR-RC-CK0">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GWR-RC-CK0" id="ctg-Xh-Rr2">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-hp-50L" userLabel="Bookmark Category Button">
+                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
+                                            <connections>
+                                                <action selector="bookmarkCategoryButton:" destination="FBQ-C6-Eyw" eventType="touchUpInside" id="NiI-re-QB3"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="kmH-hp-50L" secondAttribute="bottom" constant="6" id="8k1-JY-dtE"/>
+                                        <constraint firstAttribute="trailing" secondItem="kmH-hp-50L" secondAttribute="trailing" constant="6" id="DE6-qN-Gpe"/>
+                                        <constraint firstItem="kmH-hp-50L" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ctg-Xh-Rr2" secondAttribute="leading" constant="20" symbolic="YES" id="lc6-ET-jY3"/>
+                                        <constraint firstItem="kmH-hp-50L" firstAttribute="top" secondItem="ctg-Xh-Rr2" secondAttribute="top" constant="6" id="pRa-n9-aP9"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -127,14 +184,25 @@
                             <outlet property="delegate" destination="FBQ-C6-Eyw" id="cmf-DG-pnG"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Categories" id="GEY-ir-NSG">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0xG-VA-zJm">
-                            <connections>
-                                <action selector="addButtonPressed:" destination="FBQ-C6-Eyw" id="31t-3T-tp8"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="0xG-VA-zJm">
+                                <connections>
+                                    <action selector="addButtonPressed:" destination="FBQ-C6-Eyw" id="31t-3T-tp8"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="MK8-Fg-73a">
+                                <connections>
+                                    <action selector="sortCategory:" destination="FBQ-C6-Eyw" id="btC-qX-IlE"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="7Ur-qg-pg3"/>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="searchBar" destination="u6J-Vx-bbb" id="2mU-4m-76N"/>
                         <segue destination="X4Q-zs-uTj" kind="show" identifier="CategorySegue" id="vBw-Pn-hjt"/>
                     </connections>
                 </tableViewController>
@@ -144,6 +212,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
+        <image name="bookmark" catalog="system" width="112" height="128"/>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
+        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

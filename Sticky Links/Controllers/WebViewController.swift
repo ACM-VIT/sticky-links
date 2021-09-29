@@ -13,14 +13,10 @@ class WebViewController: UIViewController {
     var webView: WKWebView!
     var selectedLink : Items?
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = selectedLink?.title
-    }
-    override func loadView() {
-        webView = WKWebView()
-        webView.navigationDelegate = self
-        view = webView
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//
+//    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         let url = URL(string: (selectedLink?.link)!)!
@@ -33,5 +29,9 @@ class WebViewController: UIViewController {
 
 //MARK: WebView
 extension WebViewController:WKNavigationDelegate{
-    
+    override func loadView() {
+        webView = WKWebView()
+        webView.navigationDelegate = self
+        view = webView
+    }
 }

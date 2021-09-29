@@ -9,11 +9,16 @@ import UIKit
 import CoreData
 
 class CategoryViewController: UITableViewController {
-
+    
+    
     var categoryArray = [Category]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Category> = Category.fetchRequest()
+    
 
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
@@ -38,20 +43,16 @@ extension CategoryViewController{
         
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "CategorySegue"{
         let destinationVC = segue.destination as! LinksViewController
-            if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedProperty = categoryArray[indexPath.row]
-            }
-            
-        }
+        destinationVC.selectedProperty = categoryArray[tableView.indexPathForSelectedRow!.row]
+        
         
     }
 }
 
 //MARK: Add Button
 extension CategoryViewController{
-
+    
     @IBAction func addButtonPressed(_ sender: Any) {
         
         var textField = UITextField()
@@ -63,8 +64,8 @@ extension CategoryViewController{
             self.categoryArray.append(categoryName)
             self.saveCategory()
         }
-    
-
+        
+        
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Enter Category Name"
             textField = alertTextField
@@ -75,6 +76,24 @@ extension CategoryViewController{
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+}
+
+//MARK: BOOKMARK BUTTON
+extension CategoryViewController{
+    @IBAction func bookmarkCategoryButton(_ sender: UIButton) {
+    }
+    
+}
+
+//MARK: SORTING
+extension CategoryViewController{
+    @IBAction func sortCategory(_ sender: UIBarButtonItem) {
+    }
+}
+
+//MARK: SEARCH BAR
+extension CategoryViewController{
+    
 }
 
 //MARK: Helper Fucntions

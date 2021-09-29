@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 class LinksViewController: UITableViewController {
-
+    
     var links=[Items]()
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Items> = Items.fetchRequest()
@@ -17,14 +17,17 @@ class LinksViewController: UITableViewController {
             loadLink()
         }
     }
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.title = selectedProperty?.name
-    }
+  
+    @IBOutlet weak var searchBar: UISearchBar!
+ 
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//
+//    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
-   
 }
 
 //MARK: Table View
@@ -44,12 +47,10 @@ extension LinksViewController{
         tableView.deselectRow(at: indexPath, animated: true )
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if  segue.identifier == "OpenLinkSegue"{
-            let destinationVC = segue.destination as! WebViewController
-            if let indexPath = tableView.indexPathForSelectedRow{
-                destinationVC.selectedLink = links[indexPath.row]
-            }
-        }
+        
+        let destinationVC = segue.destination as! WebViewController
+        destinationVC.selectedLink = links[tableView.indexPathForSelectedRow!.row]
+
     }
 }
 
@@ -81,6 +82,26 @@ extension LinksViewController{
         present(alert, animated: true, completion: nil)
     }
 }
+
+//MARK: BOOKMARK BUTTON
+extension CategoryViewController{
+    @IBAction func bookmarkLinksButton(_ sender: UIButton) {
+    }
+}
+
+//MARK: SORTING
+extension CategoryViewController{
+    @IBAction func sortLinksButton(_ sender: UIBarButtonItem) {
+    }
+}
+
+//MARK: SEARCH BAR
+extension CategoryViewController{
+    @IBAction func searchButtonPressed(_ sender: UIBarButtonItem) {
+        
+    }
+}
+
 
 //MARK: Helper Functions
 extension LinksViewController{
