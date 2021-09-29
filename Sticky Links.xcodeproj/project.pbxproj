@@ -9,23 +9,27 @@
 /* Begin PBXBuildFile section */
 		B290640827040F81004250FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640727040F81004250FA /* AppDelegate.swift */; };
 		B290640A27040F81004250FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640927040F81004250FA /* SceneDelegate.swift */; };
-		B290640C27040F81004250FA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640B27040F81004250FA /* ViewController.swift */; };
+		B290640C27040F81004250FA /* LinksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640B27040F81004250FA /* LinksViewController.swift */; };
 		B290640F27040F81004250FA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B290640D27040F81004250FA /* Main.storyboard */; };
 		B290641227040F81004250FA /* Sticky_Links.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B290641027040F81004250FA /* Sticky_Links.xcdatamodeld */; };
 		B290641427040F85004250FA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B290641327040F85004250FA /* Assets.xcassets */; };
 		B290641727040F85004250FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B290641527040F85004250FA /* LaunchScreen.storyboard */; };
+		B29064252704152A004250FA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29064242704152A004250FA /* WebViewController.swift */; };
+		B290642727041685004250FA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290642627041685004250FA /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B290640427040F81004250FA /* Sticky Links.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sticky Links.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B290640727040F81004250FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B290640927040F81004250FA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B290640B27040F81004250FA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B290640B27040F81004250FA /* LinksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinksViewController.swift; sourceTree = "<group>"; };
 		B290640E27040F81004250FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B290641127040F81004250FA /* Sticky_Links.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sticky_Links.xcdatamodel; sourceTree = "<group>"; };
 		B290641327040F85004250FA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B290641627040F85004250FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B290641827040F85004250FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B29064242704152A004250FA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		B290642627041685004250FA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,14 +64,40 @@
 			children = (
 				B290640727040F81004250FA /* AppDelegate.swift */,
 				B290640927040F81004250FA /* SceneDelegate.swift */,
-				B290640B27040F81004250FA /* ViewController.swift */,
-				B290640D27040F81004250FA /* Main.storyboard */,
+				B29064202704135A004250FA /* Model */,
+				B290641E2704132B004250FA /* Controllers */,
+				B290641F2704133D004250FA /* View */,
 				B290641327040F85004250FA /* Assets.xcassets */,
 				B290641527040F85004250FA /* LaunchScreen.storyboard */,
 				B290641827040F85004250FA /* Info.plist */,
-				B290641027040F81004250FA /* Sticky_Links.xcdatamodeld */,
 			);
 			path = "Sticky Links";
+			sourceTree = "<group>";
+		};
+		B290641E2704132B004250FA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B290642627041685004250FA /* CategoryViewController.swift */,
+				B290640B27040F81004250FA /* LinksViewController.swift */,
+				B29064242704152A004250FA /* WebViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B290641F2704133D004250FA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B290640D27040F81004250FA /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B29064202704135A004250FA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B290641027040F81004250FA /* Sticky_Links.xcdatamodeld */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,8 +172,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B290641227040F81004250FA /* Sticky_Links.xcdatamodeld in Sources */,
-				B290640C27040F81004250FA /* ViewController.swift in Sources */,
+				B290640C27040F81004250FA /* LinksViewController.swift in Sources */,
 				B290640827040F81004250FA /* AppDelegate.swift in Sources */,
+				B29064252704152A004250FA /* WebViewController.swift in Sources */,
+				B290642727041685004250FA /* CategoryViewController.swift in Sources */,
 				B290640A27040F81004250FA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
