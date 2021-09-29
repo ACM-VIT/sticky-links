@@ -32,9 +32,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="I2x-vD-RLp" kind="show" identifier="OpenLinkSegue" trigger="accessoryAction" id="4jX-zp-tf4"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -43,8 +40,15 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="MrQ-1r-Glx">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FIV-2n-oiw"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FIV-2n-oiw">
+                            <connections>
+                                <action selector="addLinks:" destination="X4Q-zs-uTj" id="zsv-9P-BrP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="I2x-vD-RLp" kind="show" identifier="OpenLinkSegue" id="7pZ-eG-Mpp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h4c-Fk-n7O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
