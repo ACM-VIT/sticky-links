@@ -1,9 +1,9 @@
 ![ACM-HEADER](https://user-images.githubusercontent.com/14032427/92643737-e6252e00-f2ff-11ea-8a51-1f1b69caba9f.png)
 
-<h1 align="center"> PROJECT TITLE </h1>
+<h1 align="center"> Sticky Links </h1>
 
 <p align="center"> 
-Short description about the project.
+Save link of your favourite websites, articles, videos and pretty much anything!
 </p>
 
 <p>
@@ -17,8 +17,13 @@ Short description about the project.
 
 ---
 
-The overview starts here. Random text about the project, motive, how, what, why etc.
+This is a simple to do app, wherein you save links to your favourite websites, videos and articles built using swift. Users can add new links, categorise them and view them inside the app itself.
 
+Contributors, run the project, add new features, improve UI and database!
+
+Don't forget to add your name and details under Contributors. Happy Coding!
+
+Please consider leaving a ⭐ if you like the repository and our organisation :).
 ---
 
 ## Screenshots
@@ -31,6 +36,8 @@ The overview starts here. Random text about the project, motive, how, what, why 
 ## Usage
 <!-- How To, Features, Installation etc. as subheadings in this section. example-->
 
+
+
 Lets get started!
 ```console
 git remote add
@@ -42,5 +49,5 @@ git merge
 
 ## Authors
 
-**Authors:** <!-- [author1's name](link to their github profile), [author2's name](link to their github profile) .. -->  
+**Authors:** [Samridh](https://github.com/Samridh29)
 **Contributors:** <!-- Generate contributors list using this link - https://contributors-img.web.app/preview -->
