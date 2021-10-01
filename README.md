@@ -1,6 +1,6 @@
 <h1 align="center"><a href="https://organize.mlh.io/participants/events/4390-kickstarting-hacktoberfest-with-acm-vit">Kicking Off Hacktoberfest with ACM-VIT!</a></h1>
 <p align="center">
-<img src="https://raw.githubusercontent.com/Malika01/hacktoberfest-readme/master/Final.png">
+<img src="https://user-images.githubusercontent.com/52633729/135446856-ed1de284-c21a-4932-bd70-b4eae149c49c.png">
 </p>
 
 <h2 align="center"> Sticky Links </h2>
@@ -81,7 +81,7 @@ Please consider leaving a ⭐ if you like the repository and our organisation :)
 
 Lets get started!
 ```console
-git remote add origin https://github.com/ACM-VIT/iOS-Feature_Park
+git remote add origin https://github.com/ACM-VIT/sticky-links
 git pull origin main
 ```
 
