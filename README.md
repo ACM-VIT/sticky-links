@@ -23,6 +23,18 @@ Save link of your favourite websites, articles, videos and pretty much anything!
 </p>
 
 ---
+## Overview
+
+This is a simple to do app, wherein you save links to your favourite websites, videos and articles built using swift. Users can add new links, categorise them and view them inside the app itself.
+
+To the Contributors, run the project, add new features, improve UI and database!
+
+Don't forget to add your name and details under Contributors. Happy Coding!
+
+Please consider leaving a ⭐ if you like the repository and our organisation :)
+
+
+---
 ## Submitting a Pull Request
 
  * Fork the repository by clicking the fork button on top right corner of the page
@@ -64,18 +76,7 @@ Save link of your favourite websites, articles, videos and pretty much anything!
   * run the project ( shortcut: ⌘ R)
 ---
 
-## Overview
 
-This is a simple to do app, wherein you save links to your favourite websites, videos and articles built using swift. Users can add new links, categorise them and view them inside the app itself.
-
-To the Contributors, run the project, add new features, improve UI and database!
-
-Don't forget to add your name and details under Contributors. Happy Coding!
-
-Please consider leaving a ⭐ if you like the repository and our organisation :)
-
-
----
 ## Usage
 <!-- How To, Features, Installation etc. as subheadings in this section. example-->
 
