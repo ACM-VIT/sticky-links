@@ -11,7 +11,7 @@ Save link of your favourite websites, articles, videos and pretty much anything!
     <img alt="made-by-acm" src="https://img.shields.io/badge/MADE%20BY-ACM%20VIT-blue?style=for-the-badge" />
   </a>
     <!-- Uncomment the below line to add the license badge. Make sure the right license badge is reflected. -->
-    <!-- <img alt="license" src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" /> -->
+  <img alt="license" src="https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge" /> 
     <!-- forks/stars/tech stack in the form of badges from https://shields.io/ -->
 </p>
 
@@ -23,14 +23,7 @@ Contributors, run the project, add new features, improve UI and database!
 
 Don't forget to add your name and details under Contributors. Happy Coding!
 
-Please consider leaving a ⭐ if you like the repository and our organisation :).
----
-
-## Screenshots
-
-<!-- Add one screenshot of your project (max height: 1000px, max size: 1mb) 'if applicable' under assets folder in root of your project ![sceenshot](assets/<name of image>) -->
-<!-- if your project has multiple pictures , merge them into one image using a tool similar to figma -->
-
+Please consider leaving a ⭐ if you like the repository and our organisation :)
 ---
 
 ## Usage
