@@ -82,7 +82,7 @@ Please consider leaving a ⭐ if you like the repository and our organisation :)
 
 Lets get started!
 ```console
-git remote add origin https://github.com/ACM-VIT/sticky-links
+git remote add origin https://github.com/ACM-VIT/sticky-links.git
 git pull origin main
 ```
 
