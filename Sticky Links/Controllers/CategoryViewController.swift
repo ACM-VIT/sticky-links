@@ -21,6 +21,7 @@ class CategoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "PrimaryBackgroundColor")
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadCategory()
     }
