@@ -65,8 +65,8 @@ extension LinksViewController{
             let title = self.links[indexPath.row].title!
             let alert = UIAlertController(title: "Are you sure?", message: "\(title) will be gone forever.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-                let category = self.links[indexPath.row]
-                self.context.delete(category)
+                let link = self.links[indexPath.row]
+                self.context.delete(link)
                 self.links.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.saveLink()
