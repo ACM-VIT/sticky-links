@@ -35,6 +35,7 @@ extension LinksViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return links.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LinkCell", for: indexPath)
         cell.textLabel?.text = links[indexPath.row].title
@@ -46,11 +47,37 @@ extension LinksViewController{
         
         tableView.deselectRow(at: indexPath, animated: true )
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let destinationVC = segue.destination as! WebViewController
         destinationVC.selectedLink = links[tableView.indexPathForSelectedRow!.row]
 
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = deleteContextualAction(forRowat: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            let title = self.links[indexPath.row].title!
+            let alert = UIAlertController(title: "Are you sure?", message: "\(title) will be gone forever.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                let category = self.links[indexPath.row]
+                self.context.delete(category)
+                self.links.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.saveLink()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            completionHandler(true)
+        }
+        action.image = UIImage(systemName: "trash.fill")
+
+        return action
     }
 }
 

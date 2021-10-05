@@ -32,21 +32,49 @@ extension CategoryViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return categoryArray.count
     }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
         cell.textLabel?.text = categoryArray[indexPath.row].name
         return cell
     }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "CategorySegue", sender: self)
         tableView.deselectRow(at: indexPath, animated: true )
         
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! LinksViewController
         destinationVC.selectedProperty = categoryArray[tableView.indexPathForSelectedRow!.row]
         
         
+    }
+    
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let delete = deleteContextualAction(forRowat: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete])
+    }
+    
+    private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
+        let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+            let name = self.categoryArray[indexPath.row].name!
+            let alert = UIAlertController(title: "Are you sure?", message: "\(name) will be gone forever.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
+                let category = self.categoryArray[indexPath.row]
+                self.context.delete(category)
+                self.categoryArray.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.saveCategory()
+            }))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            completionHandler(true)
+        }
+        action.image = UIImage(systemName: "trash.fill")
+
+        return action
     }
 }
 
