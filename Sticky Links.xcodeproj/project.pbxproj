@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18FA0757270DED8100AEC7D8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FA0756270DED8100AEC7D8 /* Colors.swift */; };
 		B26DCA1C27062C0A0088032C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B26DCA1B27062C0A0088032C /* README.md */; };
 		B290640827040F81004250FA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640727040F81004250FA /* AppDelegate.swift */; };
 		B290640A27040F81004250FA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290640927040F81004250FA /* SceneDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18FA0756270DED8100AEC7D8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		B26DCA1B27062C0A0088032C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B290640427040F81004250FA /* Sticky Links.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sticky Links.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B290640727040F81004250FA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				B290642627041685004250FA /* CategoryViewController.swift */,
+				18FA0756270DED8100AEC7D8 /* Colors.swift */,
 				B290640B27040F81004250FA /* LinksViewController.swift */,
 				B29064242704152A004250FA /* WebViewController.swift */,
 			);
@@ -178,6 +181,7 @@
 				B290641227040F81004250FA /* Sticky_Links.xcdatamodeld in Sources */,
 				B290640C27040F81004250FA /* LinksViewController.swift in Sources */,
 				B290640827040F81004250FA /* AppDelegate.swift in Sources */,
+				18FA0757270DED8100AEC7D8 /* Colors.swift in Sources */,
 				B29064252704152A004250FA /* WebViewController.swift in Sources */,
 				B290642727041685004250FA /* CategoryViewController.swift in Sources */,
 				B290640A27040F81004250FA /* SceneDelegate.swift in Sources */,

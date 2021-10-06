@@ -17,6 +17,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+
+        setupUserInterfaceStyle()
+    }
+
+    func setupUserInterfaceStyle() {
+
+        var darkModeIsEnabled: Bool!
+
+        if let darkModeFromUserDefault = UserDefaults.standard.value(forKey: "DarkMode") as? Bool {
+
+            darkModeIsEnabled = darkModeFromUserDefault
+
+        } else {
+
+            switch UITraitCollection.current.userInterfaceStyle {
+            case .light:
+                UserDefaults.standard.set(false, forKey: "DarkMode")
+                darkModeIsEnabled = false
+            case .dark:
+                UserDefaults.standard.set(true, forKey: "DarkMode")
+                darkModeIsEnabled = true
+            default:
+                UserDefaults.standard.set(false, forKey: "DarkMode")
+                darkModeIsEnabled = false
+            }
+
+        }
+
+        window?.overrideUserInterfaceStyle = darkModeIsEnabled ? .dark : .light
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
