@@ -15,17 +15,30 @@ class CategoryViewController: UITableViewController {
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Category> = Category.fetchRequest()
     
-
-    
     @IBOutlet weak var searchBar: UISearchBar!
-    
+    @IBOutlet weak var outletSwitch: UISwitch!
+
+    @IBAction func darkAction(_ sender: Any) {
+        if outletSwitch.isOn {
+            view.window?.overrideUserInterfaceStyle = .dark
+            UserDefaults.standard.set(true, forKey: "DarkMode")
+        } else {
+            view.window?.overrideUserInterfaceStyle = .light
+            UserDefaults.standard.set(false, forKey: "DarkMode")
+        }
+
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(named: "PrimaryBackgroundColor")
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         loadCategory()
+
+        outletSwitch.isOn = UserDefaults.standard.value(forKey: "DarkMode") as? Bool ?? false
     }
 }
+
+
 
 //MARK: Table View Methods
 

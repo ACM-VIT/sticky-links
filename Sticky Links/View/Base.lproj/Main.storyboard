@@ -160,14 +160,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" id="GWR-RC-CK0">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GWR-RC-CK0" id="ctg-Xh-Rr2">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-hp-50L" userLabel="Bookmark Category Button">
-                                            <rect key="frame" x="337.33333333333331" y="6.0000000000000018" width="41" height="31.666666666666671"/>
+                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                                             <connections>
@@ -193,6 +193,15 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Categories" id="GEY-ir-NSG">
+                        <barButtonItem key="leftBarButtonItem" id="VnW-Kb-Fjy">
+                            <switch key="customView" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="NbN-7x-rF8">
+                                <rect key="frame" x="20" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="darkAction:" destination="FBQ-C6-Eyw" eventType="valueChanged" id="SXA-I6-dfM"/>
+                                </connections>
+                            </switch>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="0xG-VA-zJm">
                                 <connections>
@@ -209,6 +218,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="outletSwitch" destination="NbN-7x-rF8" id="1Aa-gi-9jV"/>
                         <outlet property="searchBar" destination="u6J-Vx-bbb" id="2mU-4m-76N"/>
                         <segue destination="X4Q-zs-uTj" kind="show" identifier="CategorySegue" id="vBw-Pn-hjt"/>
                     </connections>
@@ -224,7 +234,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="PrimaryBackgroundColor">
-            <color red="0.98782485720000002" green="0.97735267879999999" blue="0.91371709109999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.93699997663497925" green="0.94499999284744263" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="TextColors">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
