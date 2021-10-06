@@ -74,7 +74,7 @@ extension CategoryViewController{
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             let name = self.categoryArray[indexPath.row].name!
-            let alert = UIAlertController(title: "Are you sure?", message: "\(name) will be gone forever.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(name) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 let category = self.categoryArray[indexPath.row]
                 self.context.delete(category)

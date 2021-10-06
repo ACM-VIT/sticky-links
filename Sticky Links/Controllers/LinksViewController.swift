@@ -64,7 +64,7 @@ extension LinksViewController{
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             let title = self.links[indexPath.row].title!
-            let alert = UIAlertController(title: "Are you sure?", message: "\(title) will be gone forever.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(title) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 let link = self.links[indexPath.row]
                 self.context.delete(link)
