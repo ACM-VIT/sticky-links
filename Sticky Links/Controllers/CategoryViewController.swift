@@ -26,7 +26,7 @@ class CategoryViewController: UITableViewController {
             view.window?.overrideUserInterfaceStyle = .light
             UserDefaults.standard.set(false, forKey: "DarkMode")
         }
-
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 
     override func viewDidLoad() {
