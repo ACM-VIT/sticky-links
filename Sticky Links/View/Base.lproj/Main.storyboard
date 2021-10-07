@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jIg-j6-wa6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jIg-j6-wa6">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,14 +30,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LinkCell" id="Jgs-ap-hfS">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jgs-ap-hfS" id="D2V-ZO-8DE">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yif-eD-zTA" userLabel="Bookmark Link Button">
-                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
+                                            <rect key="frame" x="337.33333333333331" y="6.0000000000000018" width="41" height="31.666666666666671"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                                             <connections>
@@ -117,7 +117,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nLO-xy-8sH">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="gGh-x7-ezW"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="gGh-x7-ezW">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="I2x-vD-RLp" id="Xzu-bL-DFC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bus-pz-j6k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -164,14 +168,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" id="GWR-RC-CK0">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GWR-RC-CK0" id="ctg-Xh-Rr2">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-hp-50L" userLabel="Bookmark Category Button">
-                                            <rect key="frame" x="337.33333333333331" y="6" width="41" height="31"/>
+                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                                             <connections>
