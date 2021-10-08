@@ -100,6 +100,7 @@ extension CategoryViewController{
                 let category = self.categoryArray[indexPath.row]
                 self.context.delete(category)
                 self.categoryArray.remove(at: indexPath.row)
+                self.filteredCategoryData = self.categoryArray
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.saveCategory()
             }))

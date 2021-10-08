@@ -140,19 +140,6 @@ extension LinksViewController{
 
 //MARK: SEARCH BAR
 extension LinksViewController: UISearchBarDelegate{
-    @IBAction func searchButtonPressed(_ sender: UIBarButtonItem) {
-        self.searchBar.showsCancelButton = false
-        searchBar.resignFirstResponder()
-        if searchBar.text?.isEmpty == true {
-            searchInProgress = false
-            tableView.reloadData()
-        } else {
-            searchInProgress = true
-            let textToSearch = searchBar.text!.lowercased()
-            filteredLinksData = links.filter ({ $0.title!.lowercased().contains(textToSearch)})
-            tableView.reloadData()
-        }
-    }
         func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
             searchInProgress = false
             tableView.reloadData()

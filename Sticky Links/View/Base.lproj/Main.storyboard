@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19158" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jIg-j6-wa6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jIg-j6-wa6">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -30,14 +30,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="LinkCell" id="Jgs-ap-hfS">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Jgs-ap-hfS" id="D2V-ZO-8DE">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yif-eD-zTA" userLabel="Bookmark Link Button">
-                                            <rect key="frame" x="337.33333333333331" y="6.0000000000000018" width="41" height="31.666666666666671"/>
+                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                                             <connections>
@@ -71,11 +71,6 @@
                             <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="9AO-Y3-2OH">
                                 <connections>
                                     <action selector="sortButton:" destination="X4Q-zs-uTj" id="kHM-RK-5S0"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="aA2-GA-Xxx">
-                                <connections>
-                                    <action selector="searchButtonPressed:" destination="X4Q-zs-uTj" id="tvu-Bu-yK3"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -168,14 +163,14 @@
                         </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CategoryCell" id="GWR-RC-CK0">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.333332061767578"/>
+                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GWR-RC-CK0" id="ctg-Xh-Rr2">
-                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43.333332061767578"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmH-hp-50L" userLabel="Bookmark Category Button">
-                                            <rect key="frame" x="337.33333333333331" y="5.9999999999999982" width="41" height="31.333333333333329"/>
+                                            <rect key="frame" x="337.33333333333331" y="6" width="41" height="31"/>
                                             <state key="normal" title="Button"/>
                                             <buttonConfiguration key="configuration" style="plain" image="bookmark" catalog="system"/>
                                             <connections>
@@ -221,7 +216,6 @@
                                     <action selector="sortCategory:" destination="FBQ-C6-Eyw" id="btC-qX-IlE"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Item" image="magnifyingglass" catalog="system" id="7Ur-qg-pg3"/>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
@@ -239,7 +233,6 @@
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="PrimaryBackgroundColor">
             <color red="0.93699997663497925" green="0.94499999284744263" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
