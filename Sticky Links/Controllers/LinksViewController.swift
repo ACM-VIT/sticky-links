@@ -10,6 +10,8 @@ import CoreData
 class LinksViewController: UITableViewController {
     
     var links=[Items]()
+    var filteredLinksData: [Items] = []
+    var searchInProgress: Bool = false
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Items> = Items.fetchRequest()
     var selectedProperty:Category?{
@@ -28,24 +30,37 @@ class LinksViewController: UITableViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.primaryBackgroundColor
+        searchBar.delegate = self
+        searchBar.autocapitalizationType = .none
+        filteredLinksData = links
+        self.title = selectedProperty?.name
     }
 }
 
 //MARK: Table View
 extension LinksViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return links.count
+        if searchInProgress == true {
+            return filteredLinksData.count
+        } else {
+            return links.count
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LinkCell", for: indexPath)
-        cell.textLabel?.text = links[indexPath.row].title
+        if searchInProgress == true {
+            cell.textLabel?.text = filteredLinksData[indexPath.row].title
+        } else {
+            cell.textLabel?.text = links[indexPath.row].title
+        }
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "OpenLinkSegue", sender: self)
-        
         tableView.deselectRow(at: indexPath, animated: true )
     }
     
@@ -112,22 +127,62 @@ extension LinksViewController{
 }
 
 //MARK: BOOKMARK BUTTON
-extension CategoryViewController{
+extension LinksViewController{
     @IBAction func bookmarkLinksButton(_ sender: UIButton) {
     }
 }
 
 //MARK: SORTING
-extension CategoryViewController{
+extension LinksViewController{
     @IBAction func sortLinksButton(_ sender: UIBarButtonItem) {
     }
 }
 
 //MARK: SEARCH BAR
-extension CategoryViewController{
+extension LinksViewController: UISearchBarDelegate{
     @IBAction func searchButtonPressed(_ sender: UIBarButtonItem) {
-        
+        self.searchBar.showsCancelButton = false
+        searchBar.resignFirstResponder()
+        if searchBar.text?.isEmpty == true {
+            searchInProgress = false
+            tableView.reloadData()
+        } else {
+            searchInProgress = true
+            let textToSearch = searchBar.text!.lowercased()
+            filteredLinksData = links.filter ({ $0.title!.lowercased().contains(textToSearch)})
+            tableView.reloadData()
+        }
     }
+        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+            searchInProgress = false
+            tableView.reloadData()
+        }
+        
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            searchInProgress = true
+            searchBar.showsCancelButton = true
+            let caseInsensitiveText = searchText.lowercased()
+            filteredLinksData = searchText.isEmpty ? links : links.filter ({ $0.title!.lowercased().contains(caseInsensitiveText)})
+            tableView.reloadData()
+        }
+        
+        func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchInProgress = true
+            tableView.reloadData()
+        }
+        
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchInProgress = false
+            searchBar.text = ""
+            searchBar.resignFirstResponder()
+            self.tableView.resignFirstResponder()
+            self.searchBar.showsCancelButton = false
+            tableView.reloadData()
+        }
+        
+        func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+            return true
+        }
 }
 
 
