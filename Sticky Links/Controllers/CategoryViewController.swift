@@ -12,9 +12,10 @@ class CategoryViewController: UITableViewController {
     
     
     var categoryArray = [Category]()
+    var filteredCategoryData: [Category] = []
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Category> = Category.fetchRequest()
-    
+    var searchInProgress: Bool = false
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var outletSwitch: UISwitch!
 
@@ -35,6 +36,9 @@ class CategoryViewController: UITableViewController {
         loadCategory()
 
         outletSwitch.isOn = UserDefaults.standard.value(forKey: "DarkMode") as? Bool ?? false
+        searchBar.delegate = self
+        searchBar.autocapitalizationType = .none
+        filteredCategoryData = categoryArray
     }
 }
 
@@ -44,12 +48,21 @@ class CategoryViewController: UITableViewController {
 
 extension CategoryViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryArray.count
+        if searchInProgress == true {
+            return filteredCategoryData.count
+        } else {
+            return categoryArray.count
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        cell.textLabel?.text = categoryArray[indexPath.row].name
+        if searchInProgress == true {
+            cell.textLabel?.text = filteredCategoryData[indexPath.row].name
+        } else {
+            cell.textLabel?.text = categoryArray[indexPath.row].name
+        }
         return cell
     }
     
@@ -61,9 +74,11 @@ extension CategoryViewController{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destinationVC = segue.destination as! LinksViewController
-        destinationVC.selectedProperty = categoryArray[tableView.indexPathForSelectedRow!.row]
-        
-        
+        if searchInProgress == true {
+            destinationVC.selectedProperty = filteredCategoryData[tableView.indexPathForSelectedRow!.row]
+        } else {
+            destinationVC.selectedProperty = categoryArray[tableView.indexPathForSelectedRow!.row]
+        }
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -73,12 +88,19 @@ extension CategoryViewController{
     
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
-            let name = self.categoryArray[indexPath.row].name!
+            var name = ""
+            if self.searchInProgress == true {
+                name = self.filteredCategoryData[indexPath.row].name!
+            } else {
+                name = self.categoryArray[indexPath.row].name!
+            }
+            
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(name) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 let category = self.categoryArray[indexPath.row]
                 self.context.delete(category)
                 self.categoryArray.remove(at: indexPath.row)
+                self.filteredCategoryData = self.categoryArray
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.saveCategory()
             }))
@@ -104,6 +126,7 @@ extension CategoryViewController{
             let categoryName = Category(context: self.context)
             categoryName.name = textField.text!
             self.categoryArray.append(categoryName)
+            self.filteredCategoryData.append(categoryName)
             self.saveCategory()
         }
         
@@ -134,8 +157,37 @@ extension CategoryViewController{
 }
 
 //MARK: SEARCH BAR
-extension CategoryViewController{
+extension CategoryViewController: UISearchBarDelegate{
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchInProgress = false
+        tableView.reloadData()
+    }
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchInProgress = true
+        searchBar.showsCancelButton = true
+        let caseInsensitiveText = searchText.lowercased()
+        filteredCategoryData = searchText.isEmpty ? categoryArray : categoryArray.filter ({ $0.name!.lowercased().contains(caseInsensitiveText)})
+        tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchInProgress = true
+        tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchInProgress = false
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        self.tableView.resignFirstResponder()
+        self.searchBar.showsCancelButton = false
+        tableView.reloadData()
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
 }
 
 //MARK: Helper Fucntions
