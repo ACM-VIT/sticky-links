@@ -70,7 +70,7 @@
                             </barButtonItem>
                             <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="9AO-Y3-2OH">
                                 <connections>
-                                    <action selector="sortButton:" destination="X4Q-zs-uTj" id="kHM-RK-5S0"/>
+                                    <action selector="sortLinksButton:" destination="X4Q-zs-uTj" id="xfb-gv-b6x"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
