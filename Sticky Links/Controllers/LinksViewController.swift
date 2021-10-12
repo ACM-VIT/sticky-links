@@ -16,6 +16,7 @@ class LinksViewController: UITableViewController {
     let request : NSFetchRequest<Items> = Items.fetchRequest()
     var selectedProperty:Category?{
         didSet{
+			request.predicate = NSPredicate(format: "parentCategory.name == %@", selectedProperty?.name ?? "")
             loadLink()
         }
     }
