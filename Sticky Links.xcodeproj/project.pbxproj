@@ -18,7 +18,6 @@
 		B290641727040F85004250FA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B290641527040F85004250FA /* LaunchScreen.storyboard */; };
 		B29064252704152A004250FA /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B29064242704152A004250FA /* WebViewController.swift */; };
 		B290642727041685004250FA /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B290642627041685004250FA /* CategoryViewController.swift */; };
-		D6D538B527156D87001412AE /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D538B427156D87001412AE /* SortType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +34,6 @@
 		B290641827040F85004250FA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B29064242704152A004250FA /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		B290642627041685004250FA /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
-		D6D538B427156D87001412AE /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +102,6 @@
 			isa = PBXGroup;
 			children = (
 				B290641027040F81004250FA /* Sticky_Links.xcdatamodeld */,
-				D6D538B427156D87001412AE /* SortType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,7 +181,6 @@
 				B290641227040F81004250FA /* Sticky_Links.xcdatamodeld in Sources */,
 				B290640C27040F81004250FA /* LinksViewController.swift in Sources */,
 				B290640827040F81004250FA /* AppDelegate.swift in Sources */,
-				D6D538B527156D87001412AE /* SortType.swift in Sources */,
 				18FA0757270DED8100AEC7D8 /* Colors.swift in Sources */,
 				B29064252704152A004250FA /* WebViewController.swift in Sources */,
 				B290642727041685004250FA /* CategoryViewController.swift in Sources */,

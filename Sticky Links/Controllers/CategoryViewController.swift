@@ -9,40 +9,15 @@ import UIKit
 import CoreData
 
 class CategoryViewController: UITableViewController {
-
-	// MARK: Properties
-	var categoryArray = [Category]()
+    
+    
+    var categoryArray = [Category]()
     var filteredCategoryData: [Category] = []
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     let request : NSFetchRequest<Category> = Category.fetchRequest()
     var searchInProgress: Bool = false
-
-	private var sortType: SortType = .none {
-		willSet {
-			// If user taps the same options twice the sort will be reversed
-			if sortType == newValue {
-				categoryArray.reverse()
-			} else {
-				sortCategories(type: newValue)
-			}
-			tableView.reloadData()
-		}
-	}
-
-	// MARK: Subviews
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var outletSwitch: UISwitch!
-
-	private lazy var sortButton: UIBarButtonItem = {
-		let byName = UIAction(title: "Name") { [weak self] action in
-			self?.sortType = .name
-		}
-		let byDateCreated = UIAction(title: "Date created") { [weak self] action in
-			self?.sortType = .dateCreated
-		}
-		let menu = UIMenu(title: "Sort by", children: [byName, byDateCreated])
-		return UIBarButtonItem(title: "Sort by", image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: nil, menu: menu)
-	}()
 
     @IBAction func darkAction(_ sender: Any) {
         if outletSwitch.isOn {
@@ -52,13 +27,12 @@ class CategoryViewController: UITableViewController {
             view.window?.overrideUserInterfaceStyle = .light
             UserDefaults.standard.set(false, forKey: "DarkMode")
         }
+
     }
 
-	// MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-        navigationItem.rightBarButtonItems?.append(sortButton)
         loadCategory()
 
         outletSwitch.isOn = UserDefaults.standard.value(forKey: "DarkMode") as? Bool ?? false
@@ -113,8 +87,7 @@ extension CategoryViewController{
     }
     
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completionHandler in
-			guard let self = self else { return }
+        let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
             var name = ""
             if self.searchInProgress == true {
                 name = self.filteredCategoryData[indexPath.row].name!
@@ -149,17 +122,12 @@ extension CategoryViewController{
         var textField = UITextField()
         
         let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
-			guard let self = self else { return }
-			guard let newCategoryName = textField.text else { return }
-            let newCategory = Category(context: self.context)
-            newCategory.name = newCategoryName
-			newCategory.dateCreated = Date()
-            self.categoryArray.append(newCategory)
-            self.filteredCategoryData.append(newCategory)
-			self.sortCategories(type: self.sortType)
+        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+            let categoryName = Category(context: self.context)
+            categoryName.name = textField.text!
+            self.categoryArray.append(categoryName)
+            self.filteredCategoryData.append(categoryName)
             self.saveCategory()
-			self.tableView.reloadData()
         }
         
         
@@ -184,13 +152,8 @@ extension CategoryViewController{
 
 //MARK: SORTING
 extension CategoryViewController{
-	private func sortCategories(type: SortType) {
-		switch type {
-		case .none: break
-		case .name: categoryArray.sort { $0.name ?? "" < $1.name ?? "" }
-		case .dateCreated: categoryArray.sort { $0.dateCreated ?? Date() < $1.dateCreated ?? Date() }
-		}
-	}
+    @IBAction func sortCategory(_ sender: UIBarButtonItem) {
+    }
 }
 
 //MARK: SEARCH BAR
@@ -227,22 +190,25 @@ extension CategoryViewController: UISearchBarDelegate{
     }
 }
 
-//MARK: Core Data
-extension CategoryViewController {
-	private func saveCategory() {
-        do {
+//MARK: Helper Fucntions
+
+extension CategoryViewController{
+    func saveCategory(){
+        do{
             try context.save()
-        } catch {
+        }
+        catch{
             print("\(error)")
         }
+        tableView.reloadData()
     }
     
-	private func loadCategory() {
-        do {
+    func loadCategory(){
+        do{
             categoryArray = try context.fetch(request)
-            sortCategories(type: sortType)
-        } catch {
+        }catch{
             print("\(error)")
         }
+        tableView.reloadData()
     }
 }
