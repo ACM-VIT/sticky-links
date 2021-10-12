@@ -7,9 +7,11 @@
 
 import UIKit
 import CoreData
+
 class LinksViewController: UITableViewController {
-    
-    var links=[Items]()
+
+	// MARK: Properties
+    var links = [Items]()
     var filteredLinksData: [Items] = []
     var searchInProgress: Bool = false
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -19,17 +21,39 @@ class LinksViewController: UITableViewController {
             loadLink()
         }
     }
-  
+
+	private var sortType: SortType = .none {
+		willSet {
+			// If user taps the same options twice the sort will be reversed
+			if sortType == newValue {
+				links.reverse()
+			} else {
+				sortLinks(type: newValue)
+			}
+			tableView.reloadData()
+		}
+	}
+
+	// MARK: Subviews
     @IBOutlet weak var searchBar: UISearchBar!
- 
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//
-//    }
+
+	private lazy var sortButton: UIBarButtonItem = {
+		let byName = UIAction(title: "Name") { [weak self] action in
+			self?.sortType = .name
+		}
+		let byDateCreated = UIAction(title: "Date created") { [weak self] action in
+			self?.sortType = .dateCreated
+		}
+		let menu = UIMenu(title: "Sort by", children: [byName, byDateCreated])
+		return UIBarButtonItem(title: "Sort by", image: UIImage(systemName: "arrow.up.arrow.down"), primaryAction: nil, menu: menu)
+	}()
+
+	// MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.primaryBackgroundColor
+		navigationItem.rightBarButtonItems?.append(sortButton)
         searchBar.delegate = self
         searchBar.autocapitalizationType = .none
         filteredLinksData = links
@@ -77,7 +101,8 @@ extension LinksViewController{
     }
     
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { action, view, completionHandler in
+        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completionHandler in
+			guard let self = self else { return }
             let title = self.links[indexPath.row].title!
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(title) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
@@ -103,13 +128,18 @@ extension LinksViewController{
         var textField = UITextField()
         var linktextField = UITextField()
         let alert = UIAlertController(title: "Add your favourite Webpages", message: "", preferredStyle: .alert)
-        let addAction = UIAlertAction(title: "Add", style: .default) { (action) in
+        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
+			guard let self = self else { return }
+			guard let pageTitle = textField.text, let pageLink = linktextField.text else { return }
             let newLink = Items(context: self.context)
-            newLink.title = textField.text!
-            newLink.link = linktextField.text!
+            newLink.title = pageTitle
+            newLink.link = pageLink
             newLink.parentCategory = self.selectedProperty
+			newLink.dateCreated = Date()
             self.links.append(newLink)
+			self.sortLinks(type: self.sortType)
             self.saveLink()
+			self.tableView.reloadData()
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addTextField { alertTextField in
@@ -134,7 +164,12 @@ extension LinksViewController{
 
 //MARK: SORTING
 extension LinksViewController{
-    @IBAction func sortLinksButton(_ sender: UIBarButtonItem) {
+	private func sortLinks(type: SortType) {
+		switch type {
+		case .none: break
+		case .name: links.sort { $0.title ?? "" < $1.title ?? "" }
+		case .dateCreated: links.sort { $0.dateCreated ?? Date() < $1.dateCreated ?? Date() }
+		}
     }
 }
 
@@ -162,8 +197,8 @@ extension LinksViewController: UISearchBarDelegate{
             searchInProgress = false
             searchBar.text = ""
             searchBar.resignFirstResponder()
-            self.tableView.resignFirstResponder()
-            self.searchBar.showsCancelButton = false
+            tableView.resignFirstResponder()
+            searchBar.showsCancelButton = false
             tableView.reloadData()
         }
         
@@ -173,27 +208,22 @@ extension LinksViewController: UISearchBarDelegate{
 }
 
 
-//MARK: Helper Functions
+//MARK: Core Data
 extension LinksViewController{
-    func saveLink(){
-        do{
+    private func saveLink() {
+        do {
             try context.save()
-        }
-        catch{
+        } catch {
             print("\(error)")
         }
-        tableView.reloadData()
     }
     
-    func loadLink(){
-        do{
+	private func loadLink() {
+        do {
             links = try context.fetch(request)
-        }catch{
+			sortLinks(type: sortType)
+        } catch {
             print("\(error)")
         }
-        tableView.reloadData()
     }
-    
 }
-
-
