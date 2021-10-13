@@ -1,109 +1,109 @@
 {
   "images" : [
     {
-      "filename" : "stickyLinks40-2.png",
+      "filename" : "stickylinks40-2.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "stickyLinks60.png",
+      "filename" : "stickylinks60.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "20x20"
     },
     {
-      "filename" : "stickyLinks58-1.png",
+      "filename" : "stickylinks58-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "stickyLinks87.png",
+      "filename" : "stickylinks87.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "29x29"
     },
     {
-      "filename" : "stickyLinks80-1.png",
+      "filename" : "stickylinks80-1.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "stickyLinks120.png",
+      "filename" : "stickylinks120-1.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "40x40"
     },
     {
-      "filename" : "stickyLinks120-1.png",
+      "filename" : "stickylinks120.png",
       "idiom" : "iphone",
       "scale" : "2x",
       "size" : "60x60"
     },
     {
-      "filename" : "stickyLinks180.png",
+      "filename" : "stickylinks180.png",
       "idiom" : "iphone",
       "scale" : "3x",
       "size" : "60x60"
     },
     {
-      "filename" : "stickyLinks20.png",
+      "filename" : "stickylinks20.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "20x20"
     },
     {
-      "filename" : "stickyLinks40-1.png",
+      "filename" : "stickylinks40-1.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "20x20"
     },
     {
-      "filename" : "stickyLinks29.png",
+      "filename" : "stickylinks29.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "29x29"
     },
     {
-      "filename" : "stickyLinks58.png",
+      "filename" : "stickylinks58.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "29x29"
     },
     {
-      "filename" : "stickyLinks40.png",
+      "filename" : "stickylinks40.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "40x40"
     },
     {
-      "filename" : "stickyLinks80.png",
+      "filename" : "stickylinks80.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "40x40"
     },
     {
-      "filename" : "stickyLinks76.png",
+      "filename" : "stickylinks76.png",
       "idiom" : "ipad",
       "scale" : "1x",
       "size" : "76x76"
     },
     {
-      "filename" : "stickyLinks152.png",
+      "filename" : "stickylinks152.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "76x76"
     },
     {
-      "filename" : "stickyLinks167.png",
+      "filename" : "stickylinks167.png",
       "idiom" : "ipad",
       "scale" : "2x",
       "size" : "83.5x83.5"
     },
     {
-      "filename" : "Iconstickylinks.png",
+      "filename" : "stickylinks1024.png",
       "idiom" : "ios-marketing",
       "scale" : "1x",
       "size" : "1024x1024"
