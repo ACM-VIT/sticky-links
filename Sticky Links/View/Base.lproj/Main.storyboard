@@ -61,18 +61,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="MrQ-1r-Glx">
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="FIV-2n-oiw">
-                                <connections>
-                                    <action selector="addLinks:" destination="X4Q-zs-uTj" id="zsv-9P-BrP"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="9AO-Y3-2OH">
-                                <connections>
-                                    <action selector="sortLinksButton:" destination="X4Q-zs-uTj" id="xfb-gv-b6x"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="FIV-2n-oiw">
+                            <connections>
+                                <action selector="addLinks:" destination="X4Q-zs-uTj" id="zsv-9P-BrP"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -203,18 +196,11 @@
                                 </connections>
                             </switch>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem systemItem="add" id="0xG-VA-zJm">
-                                <connections>
-                                    <action selector="addButtonPressed:" destination="FBQ-C6-Eyw" id="31t-3T-tp8"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="Item" image="arrow.up.arrow.down" catalog="system" id="MK8-Fg-73a">
-                                <connections>
-                                    <action selector="sortCategory:" destination="FBQ-C6-Eyw" id="btC-qX-IlE"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="0xG-VA-zJm">
+                            <connections>
+                                <action selector="addButtonPressed:" destination="FBQ-C6-Eyw" id="31t-3T-tp8"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -229,7 +215,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
+
+
+        <image name="bookmark" catalog="system" width="112" height="128"/>
+
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <namedColor name="PrimaryBackgroundColor">
             <color red="0.93699997663497925" green="0.94499999284744263" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
