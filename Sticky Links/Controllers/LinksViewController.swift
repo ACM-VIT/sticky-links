@@ -103,12 +103,13 @@ extension LinksViewController{
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completionHandler in
 			guard let self = self else { return }
-            let title = self.links[indexPath.row].title!
+            let link = self.searchInProgress ? self.filteredLinksData[indexPath.row] : self.links[indexPath.row]
+            let title = link.title!
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(title) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-                let link = self.links[indexPath.row]
                 self.context.delete(link)
-                self.links.remove(at: indexPath.row)
+                self.links.removeAll { $0.dateCreated == link.dateCreated }
+                self.filterLinks(searchText: self.searchBar.text ?? String())
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.saveLink()
             }))
@@ -175,16 +176,11 @@ extension LinksViewController{
 
 //MARK: SEARCH BAR
 extension LinksViewController: UISearchBarDelegate{
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            searchInProgress = false
-            tableView.reloadData()
-        }
         
         func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
             searchInProgress = true
             searchBar.showsCancelButton = true
-            let caseInsensitiveText = searchText.lowercased()
-            filteredLinksData = searchText.isEmpty ? links : links.filter ({ $0.title!.lowercased().contains(caseInsensitiveText)})
+            filterLinks(searchText: searchText)
             tableView.reloadData()
         }
         
@@ -205,6 +201,13 @@ extension LinksViewController: UISearchBarDelegate{
         func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
             return true
         }
+}
+
+//MARK: FILTER CATEGORIES
+extension LinksViewController {
+    private func filterLinks(searchText: String) {
+        filteredLinksData = searchText.isEmpty ? links : links.filter ({ $0.title!.lowercased().contains(searchText.lowercased())})
+    }
 }
 
 
