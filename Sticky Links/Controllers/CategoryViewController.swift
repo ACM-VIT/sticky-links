@@ -178,6 +178,18 @@ extension CategoryViewController{
 //MARK: BOOKMARK BUTTON
 extension CategoryViewController{
     @IBAction func bookmarkCategoryButton(_ sender: UIButton) {
+        var linkView = sender.superview
+        while let view = linkView, !(view is UITableViewCell) {
+            linkView = view.superview
+        }
+        guard let tableCell = linkView as? UITableViewCell else {return}
+        guard let indexPath = tableView.indexPath(for: tableCell) else {return}
+        
+        let link = self.categoryArray[indexPath.row]
+        self.categoryArray.remove(at: indexPath.row)
+        self.categoryArray.insert(link, at: 0)
+        self.saveCategory()
+        self.tableView.reloadData()
     }
     
 }

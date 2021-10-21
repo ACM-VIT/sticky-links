@@ -160,6 +160,18 @@ extension LinksViewController{
 //MARK: BOOKMARK BUTTON
 extension LinksViewController{
     @IBAction func bookmarkLinksButton(_ sender: UIButton) {
+        var linkView = sender.superview
+        while let view = linkView, !(view is UITableViewCell) {
+            linkView = view.superview
+        }
+        guard let tableCell = linkView as? UITableViewCell else {return}
+        guard let indexPath = tableView.indexPath(for: tableCell) else {return}
+        
+        let link = self.links[indexPath.row]
+        self.links.remove(at: indexPath.row)
+        self.links.insert(link, at: 0)
+        self.saveLink()
+        self.tableView.reloadData()
     }
 }
 
