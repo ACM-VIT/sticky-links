@@ -118,43 +118,67 @@ extension LinksViewController{
             completionHandler(true)
         }
         action.image = UIImage(systemName: "trash.fill")
-
         return action
     }
 }
 
 //MARK: Add Links
-extension LinksViewController{
+extension LinksViewController {
+    
     @IBAction func addLinks(_ sender: UIBarButtonItem) {
-        var textField = UITextField()
-        var linktextField = UITextField()
+        addLinkAction()
+    }
+    
+    private func addLinkAction(titleTextField: UITextField = UITextField(), linkTextField: UITextField = UITextField(), message: String = String()) {
+        var titleTextField = titleTextField
+        var linkTextField = linkTextField
         let alert = UIAlertController(title: "Add your favourite Webpages", message: "", preferredStyle: .alert)
+        let attributedString = NSAttributedString(string: message, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+            NSAttributedString.Key.foregroundColor: UIColor.red
+        ])
+        alert.setValue(attributedString, forKey: "attributedMessage")
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
-			guard let self = self else { return }
-			guard let pageTitle = textField.text, let pageLink = linktextField.text else { return }
-            let newLink = Items(context: self.context)
-            newLink.title = pageTitle
-            newLink.link = pageLink
-            newLink.parentCategory = self.selectedProperty
-			newLink.dateCreated = Date()
-            self.links.append(newLink)
-			self.sortLinks(type: self.sortType)
-            self.saveLink()
-			self.tableView.reloadData()
+            guard let self = self else { return }
+            self.handleAddLinkAction(titleTextField: titleTextField, linkTextField: linkTextField)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addTextField { alertTextField in
+            alertTextField.text = titleTextField.text
             alertTextField.placeholder = "Add title for webpage"
-            textField = alertTextField
+            titleTextField = alertTextField
         }
         alert.addTextField { alertTextField in
+            alertTextField.text = linkTextField.text
             alertTextField.placeholder = "Add link for webpage"
-            linktextField = alertTextField
+            linkTextField = alertTextField
         }
         alert.addAction(addAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
+    
+    private func handleAddLinkAction(titleTextField: UITextField, linkTextField: UITextField) {
+        guard let title = titleTextField.text, let link = linkTextField.text else { return }
+        if title.isEmpty {
+            self.addLinkAction(titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter title for webpage")
+            return
+        }
+        if link.isEmpty || !self.isValidUrl(urlString: link) {
+            self.addLinkAction(titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter link for webpage")
+            return 
+        }
+        let newLink = Items(context: self.context)
+        newLink.title = title
+        newLink.link = link
+        newLink.parentCategory = self.selectedProperty
+        newLink.dateCreated = Date()
+        self.links.append(newLink)
+        self.sortLinks(type: self.sortType)
+        self.saveLink()
+        self.tableView.reloadData()
+    }
+    
 }
 
 //MARK: BOOKMARK BUTTON
@@ -227,4 +251,16 @@ extension LinksViewController{
             print("\(error)")
         }
     }
+}
+
+//MARK: URL Validation
+extension LinksViewController {
+    
+    func isValidUrl(urlString: String?) -> Bool {
+        guard let urlString = urlString, let url = URL(string: urlString) else {
+            return false
+        }
+        return UIApplication.shared.canOpenURL(url)
+    }
+    
 }
