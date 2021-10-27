@@ -111,7 +111,7 @@ extension LinksViewController{
                 self.context.delete(link)
                 self.links.removeAll { $0.dateCreated == link.dateCreated }
                 self.filterLinks(searchText: self.searchBar.text ?? String())
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.reloadData()
                 self.saveLink()
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))

@@ -123,7 +123,7 @@ extension CategoryViewController{
                 self.context.delete(category)
                 self.categoryArray.removeAll { $0.dateCreated == category.dateCreated }
                 self.filterCategories(searchText: self.searchBar.text ?? String())
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.tableView.reloadData()
                 self.saveCategory()
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
