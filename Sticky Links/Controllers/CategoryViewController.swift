@@ -140,23 +140,22 @@ extension CategoryViewController{
 extension CategoryViewController{
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        
+        addCategoryAction()
+    }
+    
+    private func addCategoryAction(message: String = String()) {
         var textField = UITextField()
-        
+    
         let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)
+        let attributedString = NSAttributedString(string: message, attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
+            NSAttributedString.Key.foregroundColor: UIColor.red
+        ])
+        alert.setValue(attributedString, forKey: "attributedMessage")
         let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
-			guard let self = self else { return }
-			guard let newCategoryName = textField.text else { return }
-            let newCategory = Category(context: self.context)
-            newCategory.name = newCategoryName
-			newCategory.dateCreated = Date()
-            self.categoryArray.append(newCategory)
-            self.filteredCategoryData.append(newCategory)
-			self.sortCategories(type: self.sortType)
-            self.saveCategory()
-			self.tableView.reloadData()
+            guard let self = self else { return }
+            self.handleAddCategoryAction(textField: textField)
         }
-        
         
         alert.addTextField { alertTextField in
             alertTextField.placeholder = "Enter Category Name"
@@ -167,6 +166,21 @@ extension CategoryViewController{
         alert.addAction(addAction)
         alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func handleAddCategoryAction(textField: UITextField) {
+        guard let name = textField.text, !name.isEmpty else {
+            addCategoryAction(message: "Please enter the category name")
+            return
+        }
+        let newCategory = Category(context: self.context)
+        newCategory.name = name
+        newCategory.dateCreated = Date()
+        self.categoryArray.append(newCategory)
+        self.filteredCategoryData.append(newCategory)
+        self.sortCategories(type: self.sortType)
+        self.saveCategory()
+        self.tableView.reloadData()
     }
 }
 
