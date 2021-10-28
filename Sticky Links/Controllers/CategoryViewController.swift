@@ -109,12 +109,13 @@ extension CategoryViewController{
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = deleteContextualAction(forRowat: indexPath)
-        return UISwipeActionsConfiguration(actions: [delete])
+        let edit = editContextualAction(forRowat: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete, edit])
     }
     
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completionHandler in
-			guard let self = self else { return }
+        let action = UIContextualAction(style: .destructive, title: "Delete") { _, _, completionHandler in
+            
             var name = ""
             if self.searchInProgress == true {
                 name = self.filteredCategoryData[indexPath.row].name!
@@ -123,6 +124,7 @@ extension CategoryViewController{
             }
             
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(name) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
+            
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
                 let category = self.categoryArray[indexPath.row]
                 self.context.delete(category)
@@ -131,6 +133,7 @@ extension CategoryViewController{
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
                 self.saveCategory()
             }))
+            
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
             completionHandler(true)
@@ -139,30 +142,44 @@ extension CategoryViewController{
 
         return action
     }
+    
+    private func editContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
+        let category = searchInProgress ? filteredCategoryData[indexPath.row] : categoryArray[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "Edit") { _, _, completionHandler  in
+            self.addUpdateCategoryAction(category: category)
+            completionHandler(true)
+        }
+        action.image = UIImage(systemName: "pencil.circle.fill")
+        action.backgroundColor = .blue
+        return action
+    }
 }
 
 //MARK: Add Button
 extension CategoryViewController{
     
     @IBAction func addButtonPressed(_ sender: Any) {
-        addCategoryAction()
+        addUpdateCategoryAction()
     }
     
-    private func addCategoryAction(message: String = String()) {
+    private func addUpdateCategoryAction(category: Category? = nil, message: String = String()) {
         var textField = UITextField()
-    
-        let alert = UIAlertController(title: "Add Category", message: "", preferredStyle: .alert)
+        let isUpdating = category != nil
+        let alert = UIAlertController(title: isUpdating ? "Update Category" : "Add Category", message: "", preferredStyle: .alert)
+        
         let attributedString = NSAttributedString(string: message, attributes: [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
             NSAttributedString.Key.foregroundColor: UIColor.red
         ])
         alert.setValue(attributedString, forKey: "attributedMessage")
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
+        
+        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { [weak self] (action) in
             guard let self = self else { return }
-            self.handleAddCategoryAction(textField: textField)
+            self.handleAddCategoryAction(category: category, textField: textField)
         }
         
         alert.addTextField { alertTextField in
+            alertTextField.text = category?.name ?? String()
             alertTextField.placeholder = "Enter Category Name"
             textField = alertTextField
         }
@@ -173,12 +190,37 @@ extension CategoryViewController{
         present(alert, animated: true, completion: nil)
     }
     
-    private func handleAddCategoryAction(textField: UITextField) {
+    // Handle of add alertAction
+    private func handleAddCategoryAction(category: Category? = nil, textField: UITextField) {
         guard let name = textField.text, !name.isEmpty else {
-            addCategoryAction(message: "Please enter the category name")
+            addUpdateCategoryAction(category: category, message: "Please enter the category name")
             return
         }
-        let newCategory = Category(context: self.context)
+        if let category = category {
+            updateCategory(category: category, name: name)
+        } else {
+            addCategory(name: name)
+        }
+    }
+    
+    // Update existing category
+    private func updateCategory(category: Category, name: String) {
+        let category = category
+        category.name = name
+        if let index = categoryArray.firstIndex(where: { $0.dateCreated == category.dateCreated }) {
+            categoryArray[index] = category
+        }
+        if let index = filteredCategoryData.firstIndex(where: { $0.dateCreated == category.dateCreated }) {
+            filteredCategoryData[index] = category
+        }
+        self.sortCategories(type: self.sortType)
+        self.saveCategory()
+        self.tableView.reloadData()
+    }
+    
+    // Create new category and append in to the list
+    private func addCategory(name: String) {
+        let newCategory =  Category(context: self.context)
         newCategory.name = name
         newCategory.dateCreated = Date()
         self.categoryArray.append(newCategory)
@@ -187,6 +229,7 @@ extension CategoryViewController{
         self.saveCategory()
         self.tableView.reloadData()
     }
+    
 }
 
 //MARK: BOOKMARK BUTTON
