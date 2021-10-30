@@ -115,20 +115,15 @@ extension CategoryViewController{
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { [weak self] action, view, completionHandler in
 			guard let self = self else { return }
-            var name = ""
-            if self.searchInProgress == true {
-                name = self.filteredCategoryData[indexPath.row].name!
-            } else {
-                name = self.categoryArray[indexPath.row].name!
-            }
+            let category = self.searchInProgress ? self.filteredCategoryData[indexPath.row] : self.categoryArray[indexPath.row]
+            let name = category.name!
             
             let alert = UIAlertController(title: "Are you sure you want to delete this item?", message: "\(name) will be deleted and can't be retrived afterwards", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { _ in
-                let category = self.categoryArray[indexPath.row]
                 self.context.delete(category)
-                self.categoryArray.remove(at: indexPath.row)
-                self.filteredCategoryData = self.categoryArray
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+                self.categoryArray.removeAll { $0.dateCreated == category.dateCreated }
+                self.filterCategories(searchText: self.searchBar.text ?? String())
+                self.tableView.reloadData()
                 self.saveCategory()
             }))
             alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
@@ -208,17 +203,12 @@ extension CategoryViewController{
 }
 
 //MARK: SEARCH BAR
-extension CategoryViewController: UISearchBarDelegate{
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        searchInProgress = false
-        tableView.reloadData()
-    }
-    
+extension CategoryViewController: UISearchBarDelegate {
+        
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchInProgress = true
         searchBar.showsCancelButton = true
-        let caseInsensitiveText = searchText.lowercased()
-        filteredCategoryData = searchText.isEmpty ? categoryArray : categoryArray.filter ({ $0.name!.lowercased().contains(caseInsensitiveText)})
+        filterCategories(searchText: searchText)
         tableView.reloadData()
     }
     
@@ -238,6 +228,13 @@ extension CategoryViewController: UISearchBarDelegate{
     
     func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
         return true
+    }
+}
+
+//MARK: FILTER CATEGORIES
+extension CategoryViewController {
+    private func filterCategories(searchText: String) {
+        filteredCategoryData = searchText.isEmpty ? categoryArray : categoryArray.filter ({ $0.name!.lowercased().contains(searchText.lowercased())})
     }
 }
 
