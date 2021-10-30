@@ -168,8 +168,7 @@ extension CategoryViewController{
         ])
         alert.setValue(attributedString, forKey: "attributedMessage")
         
-        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { [weak self] (action) in
-            guard let self = self else { return }
+        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { _ in
             self.handleAddCategoryAction(category: category, textField: textField)
         }
         
@@ -205,9 +204,7 @@ extension CategoryViewController{
         if let index = categoryArray.firstIndex(where: { $0.dateCreated == category.dateCreated }) {
             categoryArray[index] = category
         }
-        if let index = filteredCategoryData.firstIndex(where: { $0.dateCreated == category.dateCreated }) {
-            filteredCategoryData[index] = category
-        }
+        filterCategories(searchText: searchBar.text ?? String())
         self.sortCategories(type: self.sortType)
         self.saveCategory()
         self.tableView.reloadData()
