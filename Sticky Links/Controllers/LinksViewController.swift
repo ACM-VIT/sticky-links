@@ -157,8 +157,7 @@ extension LinksViewController {
             NSAttributedString.Key.foregroundColor: UIColor.red
         ])
         alert.setValue(attributedString, forKey: "attributedMessage")
-        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { [weak self] (action) in
-            guard let self = self else { return }
+        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { _ in
             self.handleAddLinkAction(link: link, titleTextField: titleTextField, linkTextField: linkTextField)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
