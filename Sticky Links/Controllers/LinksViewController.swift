@@ -98,7 +98,8 @@ extension LinksViewController{
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let delete = deleteContextualAction(forRowat: indexPath)
-        return UISwipeActionsConfiguration(actions: [delete])
+        let edit = editContextualAction(forRowat: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete, edit])
     }
     
     private func deleteContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
@@ -121,6 +122,22 @@ extension LinksViewController{
         action.image = UIImage(systemName: "trash.fill")
         return action
     }
+    
+    private func editContextualAction(forRowat indexPath: IndexPath) -> UIContextualAction {
+        let link = searchInProgress ? filteredLinksData[indexPath.row] : links[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "Edit") { _, _, completionHandler  in
+            let titleTextField = UITextField()
+            let linkTextField = UITextField()
+            titleTextField.text = link.title
+            linkTextField.text = link.link
+            self.addLinkAction(link: link, titleTextField: titleTextField, linkTextField: linkTextField)
+            completionHandler(true)
+        }
+        action.image = UIImage(systemName: "pencil.circle.fill")
+        action.backgroundColor = .blue
+        return action
+    }
+    
 }
 
 //MARK: Add Links
@@ -130,28 +147,29 @@ extension LinksViewController {
         addLinkAction()
     }
     
-    private func addLinkAction(titleTextField: UITextField = UITextField(), linkTextField: UITextField = UITextField(), message: String = String()) {
+    private func addLinkAction(link: Items? = nil, titleTextField: UITextField = UITextField(), linkTextField: UITextField = UITextField(), message: String = String()) {
+        let isUpdating = link != nil
         var titleTextField = titleTextField
         var linkTextField = linkTextField
-        let alert = UIAlertController(title: "Add your favourite Webpages", message: "", preferredStyle: .alert)
+        let alert = UIAlertController(title: isUpdating ? "Update your favourite Webpages" : "Add your favourite Webpages", message: "", preferredStyle: .alert)
         let attributedString = NSAttributedString(string: message, attributes: [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15),
             NSAttributedString.Key.foregroundColor: UIColor.red
         ])
         alert.setValue(attributedString, forKey: "attributedMessage")
-        let addAction = UIAlertAction(title: "Add", style: .default) { [weak self] (action) in
+        let addAction = UIAlertAction(title: isUpdating ? "Update" : "Add", style: .default) { [weak self] (action) in
             guard let self = self else { return }
-            self.handleAddLinkAction(titleTextField: titleTextField, linkTextField: linkTextField)
+            self.handleAddLinkAction(link: link, titleTextField: titleTextField, linkTextField: linkTextField)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alert.addTextField { alertTextField in
             alertTextField.text = titleTextField.text
-            alertTextField.placeholder = "Add title for webpage"
+            alertTextField.placeholder = "Enter title for webpage"
             titleTextField = alertTextField
         }
         alert.addTextField { alertTextField in
             alertTextField.text = linkTextField.text
-            alertTextField.placeholder = "Add link for webpage"
+            alertTextField.placeholder = "Enter link for webpage"
             linkTextField = alertTextField
         }
         alert.addAction(addAction)
@@ -159,22 +177,43 @@ extension LinksViewController {
         present(alert, animated: true, completion: nil)
     }
     
-    private func handleAddLinkAction(titleTextField: UITextField, linkTextField: UITextField) {
-        guard let title = titleTextField.text, let link = linkTextField.text else { return }
+    private func handleAddLinkAction(link: Items? = nil, titleTextField: UITextField, linkTextField: UITextField) {
+        guard let title = titleTextField.text, let linkAddress = linkTextField.text else { return }
         if title.isEmpty {
-            self.addLinkAction(titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter title for webpage")
+            self.addLinkAction(link: link, titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter title for webpage")
             return
         }
-        if link.isEmpty || !self.isValidUrl(urlString: link) {
-            self.addLinkAction(titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter link for webpage")
-            return 
+        if linkAddress.isEmpty || !self.isValidUrl(urlString: linkAddress) {
+            self.addLinkAction(link: link, titleTextField: titleTextField, linkTextField: linkTextField, message: "Please enter link for webpage")
+            return
         }
+        if let link = link {
+            link.title = title
+            link.link = linkAddress
+            updateLink(link: link)
+        } else {
+            addLink(title: title, link: linkAddress)
+        }
+    }
+    
+    private func addLink(title: String, link: String) {
         let newLink = Items(context: self.context)
         newLink.title = title
         newLink.link = link
         newLink.parentCategory = self.selectedProperty
         newLink.dateCreated = Date()
         self.links.append(newLink)
+        filterLinks(searchText: searchBar.text ?? String())
+        self.sortLinks(type: self.sortType)
+        self.saveLink()
+        self.tableView.reloadData()
+    }
+    
+    private func updateLink(link: Items) {
+        if let index = links.firstIndex(where: { $0.dateCreated == link.dateCreated }) {
+            links[index] = link
+        }
+        filterLinks(searchText: searchBar.text ?? String())
         self.sortLinks(type: self.sortType)
         self.saveLink()
         self.tableView.reloadData()
