@@ -74,13 +74,15 @@ extension LinksViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "LinkCell", for: indexPath)
-        if searchInProgress == true {
-            cell.textLabel?.text = filteredLinksData[indexPath.row].title
-        } else {
-            cell.textLabel?.text = links[indexPath.row].title
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "LinkCell", for: indexPath) as? LinkCell else {
+            return UITableViewCell()
         }
-        
+        let link = (searchInProgress ? filteredLinksData : links)[indexPath.row]
+        cell.configureWithModel(link: link)
+        cell.bookmarkAction = { sender in
+            link.isFavourite.toggle()
+            self.updateLink(link: link)
+        }
         return cell
     }
     
@@ -218,12 +220,6 @@ extension LinksViewController {
         self.tableView.reloadData()
     }
     
-}
-
-//MARK: BOOKMARK BUTTON
-extension LinksViewController{
-    @IBAction func bookmarkLinksButton(_ sender: UIButton) {
-    }
 }
 
 //MARK: SORTING
