@@ -83,11 +83,14 @@ extension CategoryViewController{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath)
-        if searchInProgress == true {
-            cell.textLabel?.text = filteredCategoryData[indexPath.row].name
-        } else {
-            cell.textLabel?.text = categoryArray[indexPath.row].name
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else {
+            return UITableViewCell()
+        }
+        let category = (searchInProgress ? filteredCategoryData : categoryArray)[indexPath.row]
+        cell.configureWithModel(category: category)
+        cell.bookmarkAction = { sender in
+            category.isFavourite.toggle()
+            self.updateCategory(category: category)
         }
         return cell
     }
@@ -191,16 +194,15 @@ extension CategoryViewController{
             return
         }
         if let category = category {
-            updateCategory(category: category, name: name)
+            category.name = name
+            updateCategory(category: category)
         } else {
             addCategory(name: name)
         }
     }
     
     // Update existing category
-    private func updateCategory(category: Category, name: String) {
-        let category = category
-        category.name = name
+    private func updateCategory(category: Category) {
         if let index = categoryArray.firstIndex(where: { $0.dateCreated == category.dateCreated }) {
             categoryArray[index] = category
         }
@@ -220,13 +222,6 @@ extension CategoryViewController{
         self.sortCategories(type: self.sortType)
         self.saveCategory()
         self.tableView.reloadData()
-    }
-    
-}
-
-//MARK: BOOKMARK BUTTON
-extension CategoryViewController{
-    @IBAction func bookmarkCategoryButton(_ sender: UIButton) {
     }
     
 }
